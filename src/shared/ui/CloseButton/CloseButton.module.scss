@@ -1,0 +1,19 @@
+.CloseButton {
+	padding: 0;
+	width: 36px;
+	height: 36px;
+	display: grid;
+	place-items: center;
+	border-radius: 100%;
+	border: 1px solid var(--black-1);
+	@media (hover: hover) {
+		transition: background 0.3s ease-in-out;
+		&:hover {
+			background: var(--green);
+		}
+	}
+	@media (max-width: 767px) {
+		width: 28px;
+		height: 28px;
+	}
+}

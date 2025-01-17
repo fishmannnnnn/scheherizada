@@ -1,0 +1,26 @@
+.Navbar {
+	padding-top: 24px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.logo {
+	display: block;
+	margin: 0 auto;
+	@media (hover: hover) {
+		cursor: pointer;
+	}
+}
+@media (max-width: 991px) {
+	.logo {
+		width: 308px;
+		height: 104px;
+	}
+}
+@media (max-width: 767px) {
+	.logo {
+		width: 258px;
+		height: 88px;
+	}
+}

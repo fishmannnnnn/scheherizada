@@ -1,0 +1,1 @@
+# This folder is used for Nextjs's router to ignore the pages folder inside src

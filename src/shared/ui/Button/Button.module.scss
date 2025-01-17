@@ -1,0 +1,35 @@
+.Button {
+	padding: 10px 0;
+	border-radius: 8px;
+	background: none;
+	color: var(--orange-1);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: 1.4px;
+	text-transform: uppercase;
+	transition: background 0.3s ease-out;
+}
+.clear {
+    transition: color 0.3s ease-out;
+    @media (hover: hover) {
+		&:hover {
+			color: var(--black-1);
+		}
+	}
+}
+.accent {
+	padding: 12.5px 0;
+	background: var(--orange-1);
+	color: white;
+	@media (hover: hover) {
+		&:hover {
+			background: var(--black-1);
+		}
+	}
+}
+.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}

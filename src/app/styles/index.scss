@@ -1,0 +1,27 @@
+@import "reset";
+@import "variables";
+
+html,
+body {
+	max-width: 100vw;
+	overflow-x: hidden;
+}
+
+body {
+	color: var(--foreground);
+	background: var(--background);
+	min-height: 100dvh;
+}
+
+h1 {
+	font-weight: 400;
+	font-size: 30px;
+	letter-spacing: 1.2px;
+}
+
+@media (max-width: 767px) {
+	h1 {
+		font-size: 28px;
+		letter-spacing: 1.12px;
+	}
+}
