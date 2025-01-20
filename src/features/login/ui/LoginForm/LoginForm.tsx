@@ -6,8 +6,8 @@ import { SyntheticEvent, useState } from "react";
 import { client } from "@/shared/config/graphql";
 import { Button, ButtonTheme } from "@/shared/ui/Button/Button";
 import { Input } from "@/shared/ui/Input/Input";
-import { useMutation } from "@apollo/client";
-
+import { ApolloError, useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
 import { Login } from "../../model/api/mutations";
 import styles from "./LoginForm.module.scss";
 
@@ -18,16 +18,28 @@ interface LoginFormProps {
 export const LoginForm = ({ className }: LoginFormProps) => {
 	const [loginData, setLoginData] = useState({ email: "", password: "" });
 
-	const [login, { loading, data }] = useMutation(Login, {
+	const [login] = useMutation(Login, {
 		client,
 	});
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
-		await login({
-			variables: { email: loginData.email, password: loginData.password },
-		});
-		console.log(data, loading, loginData);
+		let res;
+		try {
+			res = await login({
+				variables: {
+					email: loginData.email,
+					password: loginData.password,
+				},
+			});
+		} catch (e) {
+			if (e instanceof ApolloError) {
+				toast.error(e.message);
+			} else {
+				console.log("Unknown error");
+			}
+		}
+		console.log(res?.data, res?.errors);
 	};
 
 	const onChangeEmail = (value: string) => {
@@ -39,17 +51,14 @@ export const LoginForm = ({ className }: LoginFormProps) => {
 	};
 
 	return (
-		<form
-			className={clsx(styles.LoginForm, className)}
-			onSubmit={handleSubmit}
-		>
+		<form className={clsx(styles.Form, className)} onSubmit={handleSubmit}>
 			<Input
 				className={styles.input}
 				placeholder={"Enter email"}
 				onChange={onChangeEmail}
 				value={loginData.email}
 				autoFocus
-                autoComplete="email"
+				autoComplete="email"
 			/>
 			<Input
 				inputType="password"
@@ -57,7 +66,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
 				placeholder={"Password"}
 				onChange={onChangePassword}
 				value={loginData.password}
-                autoComplete="current-password"
+				autoComplete="current-password"
 			/>
 			<Input
 				className={styles.input}

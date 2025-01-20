@@ -13,13 +13,13 @@ import {
 
 import styles from "./RegisterPage.module.scss";
 
-interface LoginPageProps {
+interface PageProps {
 	className?: string;
 }
 
-export const RegisterPage = ({ className }: LoginPageProps) => {
+export const RegisterPage = ({ className }: PageProps) => {
 	return (
-		<div className={clsx(styles.LoginPageContainer, className)}>
+		<div className={clsx(styles.PageContainer, className)}>
 			<div className={styles.bg}>
 				<Image
 					className={styles.bgImage}
@@ -33,17 +33,16 @@ export const RegisterPage = ({ className }: LoginPageProps) => {
 					theme={LetterPatternTheme.Dark}
 				/>
 			</div>
-			<div className={styles.LoginPage}>
+			<div className={styles.Page}>
 				<CloseButton className={styles.closeBtn} />
 				<div className={styles.blurZone}>
 					<div className={styles.content}>
 						<div className={styles.loginBlock}>
-							<h1 className={styles.loginTitle}>Create account</h1>
+							<h1 className={styles.loginTitle}>
+								Create account
+							</h1>
 							<RegisterForm className={styles.loginForm} />
-							<Button
-								className={styles.btn}
-								navigate="/login"
-							>
+							<Button className={styles.btn} navigate="/login">
 								SIGN IN
 							</Button>
 						</div>

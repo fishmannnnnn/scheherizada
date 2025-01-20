@@ -1,12 +1,14 @@
 "use client";
 
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 import { SyntheticEvent, useState } from "react";
+import toast from "react-hot-toast";
 
 import { client } from "@/shared/config/graphql";
 import { Button, ButtonTheme } from "@/shared/ui/Button/Button";
 import { Input } from "@/shared/ui/Input/Input";
-import { useMutation } from "@apollo/client";
+import { ApolloError, useMutation } from "@apollo/client";
 
 import { Register } from "../../model/api/mutations";
 import styles from "./RegisterForm.module.scss";
@@ -21,41 +23,57 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
 		password: "",
 		duplicatedPassword: "",
 	});
-
-	const [register, { loading, data }] = useMutation(Register, {
+	const [buttonDisabled, setButtonDisabled] = useState(false);
+	const router = useRouter();
+	const [register] = useMutation(Register, {
 		client,
 	});
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
 		if (!validateEmail()) {
-			console.log("Invalid email");
+			toast.error("Invalid email");
 		}
 		if (!validatePassword()) {
-			console.log("Invalid password");
+			toast.error(
+				`Password should be minimum 8 characters long and contain at least 1 digit, 1 lower case and 1 upper case character`,
+			);
 		}
 		if (!validateDuplicatedPassword()) {
-			console.log("Passwords do not match");
+			toast.error("Passwords do not match");
 		}
 		if (
 			validateEmail() &&
 			validatePassword() &&
 			validateDuplicatedPassword()
 		) {
-			await register({
-				variables: {
-					data: {
-						email: registerData.email,
-						password: registerData.password,
+			setButtonDisabled(true);
+			try {
+				const res = await register({
+					variables: {
+						data: {
+							email: registerData.email,
+							password: registerData.password,
+						},
 					},
-				},
-			});
-			console.log(data, loading, registerData);
+				});
+
+                if(res?.data) {
+                    router.push("/registration/success");
+                }
+			} catch (e) {
+				if (e instanceof ApolloError) {
+					toast.error(e.message);
+				} else {
+					console.error("Unknown error");
+				}
+			}
 		}
 	};
 
 	const onChangeEmail = (value: string) => {
 		setRegisterData(prev => ({ ...prev, email: value }));
+		if (buttonDisabled) setButtonDisabled(false);
 	};
 
 	const onChangePassword = (value: string) => {
@@ -81,17 +99,14 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
 	};
 
 	return (
-		<form
-			className={clsx(styles.RegisterForm, className)}
-			onSubmit={handleSubmit}
-		>
+		<form className={clsx(styles.Form, className)} onSubmit={handleSubmit}>
 			<Input
 				className={styles.input}
 				placeholder={"Enter email"}
 				onChange={onChangeEmail}
 				value={registerData.email}
 				autoFocus
-                autoComplete="email"
+				autoComplete="email"
 			/>
 			<Input
 				inputType="password"
@@ -99,7 +114,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
 				placeholder={"Password"}
 				onChange={onChangePassword}
 				value={registerData.password}
-                autoComplete="new-password"
+				autoComplete="new-password"
 			/>
 			<Input
 				inputType="password"
@@ -107,17 +122,14 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
 				placeholder={"Confirm password"}
 				onChange={onChangeDuplicatedPassword}
 				value={registerData.duplicatedPassword}
-                autoComplete="new-password"
+				autoComplete="new-password"
 			/>
-			<Input
-				className={styles.input}
-				placeholder={"Confirmation code"}
-			/>
+			<Input className={styles.input} placeholder={"Confirmation code"} />
 			<Button
 				className={styles.btn}
 				type="submit"
 				theme={ButtonTheme.ACCENT}
-				// disabled={!validatePassword()}
+				disabled={buttonDisabled}
 			>
 				SIGN UP
 			</Button>

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 
 import styles from "./Footer.module.scss";
+import Link from "next/link";
 
 interface FooterProps {
 	className?: string;
@@ -10,22 +11,22 @@ export const Footer = ({ className }: FooterProps) => {
 	return (
 		<footer className={clsx(styles.Footer, className)}>
 			<div className={styles.siteInfo}>
-				<a
+				<Link
 					href="https://support.scheherizada.tech"
 					className={styles.supportLink}
 				>
 					support.scheherizada.tech
-				</a>
+				</Link>
 				<span className={styles.c}>© 2033</span>
-				<a
+				<Link
 					href="https://www.scheherizada.com"
 					className={styles.siteLink}
 				>
 					scheherizada.com
-				</a>
+				</Link>
 			</div>
 			<div className={styles.policies}>
-				<a href="terms">Terms and conditions</a>
+				<Link href="/terms">Terms and conditions</Link>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="4"
@@ -35,7 +36,7 @@ export const Footer = ({ className }: FooterProps) => {
 				>
 					<circle cx="2" cy="2" r="2" fill="#7E7E7E" />
 				</svg>
-				<a href="privacy">Privacy Policy</a>
+				<Link href="/privacy">Privacy Policy</Link>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="4"
@@ -45,7 +46,7 @@ export const Footer = ({ className }: FooterProps) => {
 				>
 					<circle cx="2" cy="2" r="2" fill="#7E7E7E" />
 				</svg>
-				<a href="cookies">Cookies policy</a>
+				<Link href="/cookies">Cookies policy</Link>
 			</div>
 		</footer>
 	);

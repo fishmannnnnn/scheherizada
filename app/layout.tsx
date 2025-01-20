@@ -5,6 +5,7 @@ import { Roboto_Flex } from "next/font/google";
 import { Roboto_Serif } from "next/font/google";
 import { Sancreek } from "next/font/google";
 import localFont from "next/font/local";
+import { Toaster } from "react-hot-toast";
 
 import { GraphqlProvider } from "@/app/providers/graphql";
 import "@/app/styles/index.scss";
@@ -64,6 +65,31 @@ export default function RootLayout({
 		>
 			<body>
 				<GraphqlProvider>
+					<Toaster
+						position="top-center"
+						reverseOrder={false}
+						gutter={8}
+						containerClassName=""
+						containerStyle={{}}
+						toastOptions={{
+							className: "",
+							duration: 5000,
+							removeDelay: 1000,
+							style: {
+								background: "var(--color-2)",
+								color: "var(--black-1)",
+                                border: "1px solid var(--black-2)",
+                                fontFamily: "var(--roboto-slab)"
+							},
+							success: {
+								duration: 3000,
+								iconTheme: {
+									primary: "green",
+									secondary: "white",
+								},
+							},
+						}}
+					/>
 					<Navbar />
 					{children}
 					<Footer />
