@@ -1,21 +1,18 @@
 import clsx from "clsx";
 import Image from "next/image";
 
+import { RecoveryForm } from "@/features/recovery";
 import bg from "@/shared/assets/images/authWallpaper.webp";
 import decorator from "@/shared/assets/images/decorator.png";
 import { CloseButton } from "@/shared/ui/CloseButton/CloseButton";
 import { LetterPattern } from "@/shared/ui/LetterPattern/LetterPattern";
 
 import styles from "./RecoveryPage.module.scss";
-import { RecoveryForm } from "@/features/recovery";
 
-interface PageProps {
-	className?: string;
-}
 
-export const RecoveryPage = ({ className }: PageProps) => {
+export const RecoveryPage = () => {
 	return (
-		<div className={clsx(styles.PageContainer, className)}>
+		<div className={clsx(styles.PageContainer)}>
 			<div className={styles.bg}>
 				<Image
 					className={styles.bgImage}
@@ -38,7 +35,7 @@ export const RecoveryPage = ({ className }: PageProps) => {
 						used to register your account. We will send you a link
 						to reset your password.
 					</p>
-                    <RecoveryForm className={styles.form}/>
+					<RecoveryForm className={styles.form} />
 				</div>
 			</div>
 		</div>

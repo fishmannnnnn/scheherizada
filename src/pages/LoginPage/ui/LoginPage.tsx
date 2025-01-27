@@ -13,20 +13,15 @@ import {
 
 import styles from "./LoginPage.module.scss";
 
-interface PageProps {
-	className?: string;
-}
-
-export const LoginPage = ({ className }: PageProps) => {
+export const LoginPage = () => {
 	return (
-		<div className={clsx(styles.PageContainer, className)}>
+		<div className={clsx(styles.PageContainer)}>
 			<div className={styles.bg}>
 				<Image
 					className={styles.bgImage}
 					src={bg}
 					alt=""
-					width={1600}
-					height={900}
+					quality={50}
 				/>
 				<LetterPattern
 					className={styles.letterPattern}
@@ -40,7 +35,10 @@ export const LoginPage = ({ className }: PageProps) => {
 						<div className={styles.loginBlock}>
 							<h1 className={styles.loginTitle}>Sign in</h1>
 							<LoginForm className={styles.loginForm} />
-							<Button className={styles.btn} navigate="/registration">
+							<Button
+								className={styles.btn}
+								navigate="/registration"
+							>
 								SIGN UP
 							</Button>
 						</div>

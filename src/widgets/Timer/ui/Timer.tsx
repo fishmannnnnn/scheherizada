@@ -22,7 +22,7 @@ export const Timer: React.FC<TimerProps> = ({ time, timeoutAction }) => {
 		}, 1000);
 
 		return () => clearInterval(timer);
-	}, [timeLeft]);
+	}, [timeLeft, timeoutAction]);
 
 	return <span>{timeLeft > 0 ? `${timeLeft}` : "0"}</span>;
 };

@@ -13,11 +13,11 @@ import {
 
 import styles from "./RegisterPage.module.scss";
 
-interface PageProps {
+interface RegisterPageProps {
 	className?: string;
 }
 
-export const RegisterPage = ({ className }: PageProps) => {
+export const RegisterPage = ({ className }: RegisterPageProps) => {
 	return (
 		<div className={clsx(styles.PageContainer, className)}>
 			<div className={styles.bg}>
@@ -25,8 +25,7 @@ export const RegisterPage = ({ className }: PageProps) => {
 					className={styles.bgImage}
 					src={bg}
 					alt=""
-					width={1600}
-					height={900}
+                    quality={50}
 				/>
 				<LetterPattern
 					className={styles.letterPattern}

@@ -1,13 +1,15 @@
 "use client";
 
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 import { SyntheticEvent, useState } from "react";
+import toast from "react-hot-toast";
 
 import { client } from "@/shared/config/graphql";
 import { Button, ButtonTheme } from "@/shared/ui/Button/Button";
 import { Input } from "@/shared/ui/Input/Input";
 import { ApolloError, useMutation } from "@apollo/client";
-import toast from "react-hot-toast";
+
 import { Login } from "../../model/api/mutations";
 import styles from "./LoginForm.module.scss";
 
@@ -16,6 +18,8 @@ interface LoginFormProps {
 }
 
 export const LoginForm = ({ className }: LoginFormProps) => {
+	const router = useRouter();
+
 	const [loginData, setLoginData] = useState({ email: "", password: "" });
 
 	const [login] = useMutation(Login, {
@@ -24,14 +28,16 @@ export const LoginForm = ({ className }: LoginFormProps) => {
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
-		let res;
 		try {
-			res = await login({
+			const res = await login({
 				variables: {
 					email: loginData.email,
 					password: loginData.password,
 				},
 			});
+			if (res.data) {
+				router.push("/profile");
+			}
 		} catch (e) {
 			if (e instanceof ApolloError) {
 				toast.error(e.message);
@@ -39,7 +45,6 @@ export const LoginForm = ({ className }: LoginFormProps) => {
 				console.log("Unknown error");
 			}
 		}
-		console.log(res?.data, res?.errors);
 	};
 
 	const onChangeEmail = (value: string) => {

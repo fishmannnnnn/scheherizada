@@ -1,16 +1,18 @@
 import clsx from "clsx";
+
 // import Image from "next/image";
 
 import { ResetPasswordForm } from "@/features/reset-password";
+
 // import decorator from "@/shared/assets/images/decorator.png";
 
 import styles from "./ResetPasswordPage.module.scss";
 
-interface PageProps {
+interface ResetPasswordPageProps {
 	className?: string;
 }
 
-export const ResetPasswordPage = ({ className }: PageProps) => {
+export const ResetPasswordPage = ({ className }: ResetPasswordPageProps) => {
 	return (
 		<div className={clsx(styles.PageContainer, className)}>
 			<div className={styles.bg}>

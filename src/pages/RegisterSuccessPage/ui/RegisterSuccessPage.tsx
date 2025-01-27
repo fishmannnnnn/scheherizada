@@ -8,11 +8,13 @@ import { LetterPattern } from "@/shared/ui/LetterPattern/LetterPattern";
 
 import styles from "./RegisterSuccessPage.module.scss";
 
-interface PageProps {
+interface RegisterSuccessPageProps {
 	className?: string;
 }
 
-export const RegisterSuccessPage = ({ className }: PageProps) => {
+export const RegisterSuccessPage = ({
+	className,
+}: RegisterSuccessPageProps) => {
 	return (
 		<div className={clsx(styles.PageContainer, className)}>
 			<div className={styles.bg}>

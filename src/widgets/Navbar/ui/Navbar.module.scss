@@ -1,26 +1,42 @@
 .Navbar {
-	padding-top: 24px;
+	position: absolute;
+	top: 24px;
+	left: 0;
+	right: 0;
+	height: 120px;
+}
+.NavbarInner {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+}
+.logo {
+	display: block;
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
-}
-.logo {
-	display: block;
 	margin: 0 auto;
+	height: 100%;
 	@media (hover: hover) {
 		cursor: pointer;
 	}
 }
 @media (max-width: 991px) {
+	.Navbar {
+		height: 104px;
+	}
 	.logo {
 		width: 308px;
-		height: 104px;
 	}
 }
 @media (max-width: 767px) {
+	.Navbar {
+		height: 88px;
+	}
 	.logo {
 		width: 258px;
-		height: 88px;
 	}
 }
